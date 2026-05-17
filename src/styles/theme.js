@@ -49,8 +49,9 @@ export const T = {
   // panelWidth:   "320px",  // 예약 사이드 패널
 
   // 1920 풀width 이머시브 섹션 기준
-  pagePad: "clamp(24px, calc(12.5vw - 80px), 160px)",
-  // 1920px → 160px / 1280px → 80px / 832px 이하 → 24px 고정
+  pagePad:
+    "clamp(24px, max(min(calc(12.5vw - 36px), calc(3.9vw + 30px)), calc(12.5vw - 80px)), 160px)",
+  // 1920px → 160px / 1280px → 80px / 768px → 60px / 480px 이하 → 24px 고정
 
   // rsv = reservation (예약 페이지 전용)
   rsvMaxWidth: "1280px",
@@ -58,6 +59,7 @@ export const T = {
 
   // 브레이크포인트 (max-width 기준 / 데스크탑 우선)
   bp: {
+    mini: "480px",
     mobile: "768px",
     tablet: "1024px",
     desktop: "1440px",
@@ -65,25 +67,29 @@ export const T = {
 
   // ── 폰트 사이즈
   fontSize: {
+    xxs: "12px",
     xs: "14px",
     sm: "16px",
     md: "18px",
     lg: "clamp(18px, calc(0.5208vw + 14px), 24px)",
     xl: "clamp(20px, calc(1.0417vw + 12px), 32px)",
     xxl: "clamp(24px, calc(1.5625vw + 12px), 42px)", // 섹션 타이틀
-    hero: "clamp(48px, 5.73vw, 110px)", // 히어로
+    hero: "clamp(52px, 10vw, 110px)", // 히어로
   },
 
-  // ── 공통 spacing 값
+  // ── 공통 spacing 값 (px 값을 키로 사용 — T.spacing[16] → "16px")
   spacing: {
-    1: "4px",
-    2: "6px",
-    3: "8px",
-    4: "12px",
-    5: "16px",
-    6: "24px",
-    7: "32px",
-    8: "36px",
+    4: "4px",
+    6: "6px",
+    8: "8px",
+    12: "12px",
+    16: "16px",
+    20: "20px",
+    24: "24px",
+    32: "32px",
+    36: "36px",
+    42: "42px",
+    48: "48px",
   },
 
   // ── 컴포넌트 공통 구조값
@@ -93,7 +99,7 @@ export const T = {
 
   // ── 트랜지션
   transition: {
-    fast: "0.18s ease",
+    fast: "0.2s ease",
     mid: "0.28s ease",
     slow: "0.4s ease",
     spring: "0.42s cubic-bezier(0.22, 0.68, 0, 1.1)",
@@ -159,8 +165,7 @@ export const SECTION_COLOR = [
   T.pink, // 5: CTA / Footer
 ]
 
-// ── 야(夜) 히어로 타이틀 그라디언트
-// 사용: ${n.heroGrad} in styled 템플릿 리터럴
+// ── 야(夜) 히어로 타이틀 그라디언트 - 사용: ${n.heroGrad} in styled 템플릿 리터럴
 const HERO_GRAD = {
   1: textGradStops(["#ff6f9d 25%", "#ffa3c1 40%", "#c9547a 60%", "#54001f 100%"], 180),
   2: textGradStops(["rgba(255,178,63,0.8) 25%", "#ffd97b 40%", "#ff9f43 60%", "#641100 91%"], 180),
@@ -181,7 +186,6 @@ const makeNight = (color, dim, dark, gradTo, heroGrad) => ({
   line: accentLine(color),
   lineLeft: `linear-gradient(90deg, ${color}, transparent)`,
   lineRight: `linear-gradient(90deg, transparent, ${color})`,
-  // 카드·모달 보더 상단/하단 포인트 라인 (중앙 white 피크 shimmer)
   shimmer: `linear-gradient(90deg, transparent 0%, ${color} 30%, ${T.white} 50%, ${color} 70%, transparent 100%)`,
   grad: `linear-gradient(135deg, ${color}, ${dim})`,
   textGrad: textGrad(color, gradTo),
